@@ -1,5 +1,5 @@
 package entities
 
 type BirdVoteGateway interface {
-	addVote(BirdVote) (int, error)
+	AddVote(int) (int, error)
 }
