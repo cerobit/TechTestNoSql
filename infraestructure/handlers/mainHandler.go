@@ -43,11 +43,18 @@ func (mh MainHandler) voteUp(w http.ResponseWriter, r *http.Request)  {
 		fmt.Println(birdRequest)
 		 // ID bird info obtained correctly from request body
 		 // Proceed with voting process
-		birdId, votes, error :=  mh.bvUseCases.CaseBirdVoteUp(birdRequest.ID)
+		birdId, votes, err :=  mh.bvUseCases.CaseBirdVoteUp(birdRequest.ID)
+		var description string
+		if err != nil {
+		   description = err.Error()
+		}else {
+			description =  "Vote Complete"
+		}
+
 		birdResponse := entities.BirdVoteResponse{
 			birdId,
 			votes,
-			error.Error()}
+			description}
 
 		json.NewEncoder(w).Encode(birdResponse)
 
